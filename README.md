@@ -24,15 +24,18 @@ que usa Azure. Diferencias principales entre esa referencia y este proyecto, que
 
 ## Autoría y alcance
 
-- **Autor y desarrollador:** Martin Atagua. Proyecto académico **individual**.
-- **Desarrollo técnico:** el diseño, la implementación y el desarrollo del pipeline (notebooks, transformaciones, bundle,
-  workflows, validaciones de calidad y aislamiento, seguridad y permisos, reversión y pruebas) son del autor.
-- **Referencia académica:** el flujo conceptual (Medallion sobre Databricks con CI/CD) toma como referencia el repositorio del curso
-  [Enrykiel/databricks_project](https://github.com/Enrykiel/databricks_project), que pertenece a su autor y, según su README, declara
-  licencia MIT (dato aportado por el propietario; esta documentación no guarda copia). El autor de este proyecto lo usó como referencia
-  académica y conceptual, no como colaborador: no es una dependencia ni el repositorio de publicación, y no se le atribuye autoría de
-  este código. Este repositorio no incorpora código de ese repositorio según el autor; **no se ha realizado una comparación de
-  originalidad** (ver la [checklist](docs/checklist_cumplimiento.md)).
+- **Autor y responsable del proyecto:** Martin Atagua. Proyecto académico **individual**, desarrollado con asistencia de herramientas de IA (ver más abajo).
+- **Desarrollo técnico:** el autor definió el diseño y dirigió la implementación del pipeline (notebooks, transformaciones, bundle,
+  workflows, validaciones de calidad y aislamiento, seguridad y permisos, reversión y pruebas), y asume la responsabilidad final del
+  proyecto. La implementación se realizó **con asistencia de herramientas de IA** (ver [Uso de herramientas de IA](#uso-de-herramientas-de-ia)):
+  no se afirma que el autor haya escrito manualmente cada fragmento de código ni se acredita la autoría de fragmentos concretos.
+- **Referencia académica:** se utilizó como referencia académica el repositorio
+  [Enrykiel/databricks_project](https://github.com/Enrykiel/databricks_project), que pertenece a su autor. La comparación realizada
+  (2026-11-13, ramas `main` y `dev`) **no encontró reutilización material de código**: solo coincidencias con patrones habituales de
+  Databricks y PySpark y con la estructura de carpetas del curso. Su README declara MIT y enlaza a un archivo `LICENSE` que **no se
+  encontró en las ramas examinadas** (la API de GitHub devolvió `license: null`), por lo que no se verificó el texto íntegro de dicha
+  licencia. La conclusión se limita a esa comparación: no es una certificación de originalidad frente a cualquier otra fuente. No es
+  una dependencia, no es el repositorio de publicación y no se le atribuye autoría de este código (ver la [checklist](docs/checklist_cumplimiento.md)).
 - **Infraestructura de ejecución:** las ejecuciones documentadas usaron recursos externos a este repositorio:
   - un **workspace de Databricks**, al que el autor tuvo acceso temporal;
   - **recursos de AWS**: el bucket S3 y el IAM Role;
@@ -40,15 +43,27 @@ que usa Azure. Diferencias principales entre esa referencia y este proyecto, que
 
   Esta documentación **no afirma la titularidad** de ninguno de estos recursos: es independiente de la autoría del código y queda
   pendiente de confirmación.
-- **Datasets:** son de terceros, con sus atribuciones y licencias en [datasets/README.md](datasets/README.md) (fuente principal). El autor no reclama derechos sobre ellos.
-  **E-commerce está incluido** en el repositorio. **Automobile no está incluido**, por decisión de distribución: su copia local queda fuera de Git y su
-  revisión de redistribución sigue pendiente. No tienen la misma condición de redistribución.
-- **Licencia del código:** MIT, **exclusivamente para el código original de este proyecto**. No cubre ni modifica los datasets ni los materiales de terceros; consulta [datasets/README.md](datasets/README.md) para su procedencia y condiciones declaradas.
+- **Datasets:** son de terceros; su procedencia, licencias y decisión de publicación están en **[DATASETS.md](DATASETS.md)** (detalle técnico en
+  [datasets/README.md](datasets/README.md)). El autor no reclama derechos sobre ellos.
+  **E-commerce** (Nevil Dhinoja, Kaggle, CC0 1.0 declarada por la fuente; archivo verificado byte a byte frente a la descarga oficial) **está incluido**.
+  **Automobile** (UCI, Jeffrey Schlimmer, CC BY 4.0) **queda excluido de la publicación inicial**: su copia local está fuera de Git y no se ha confirmado su identidad con la distribución de UCI.
+- **Licencia del código:** MIT, **exclusivamente para el código original de este proyecto**. No cubre ni modifica los datasets ni los materiales de terceros, que conservan sus propias condiciones ([DATASETS.md](DATASETS.md)). No hay una licencia única para todo el contenido del repositorio.
 - **Alcance:** proyecto de formación. No es experiencia laboral comercial y no incluye mediciones de rendimiento, ahorro ni impacto de negocio.
+- **Dos arquitecturas separadas:** (1) el **pipeline original con AWS S3** (`proceso/`, `databricks.yml`) y (2) el **laboratorio independiente en
+  Databricks Free Edition con RAW en un Managed Volume** ([lakehouse_lab/README.md](lakehouse_lab/README.md)), ejecutado en un workspace personal
+  distinto. No forman una única ejecución integrada y el laboratorio no demuestra integración S3 ni Managed Identity.
+
+### Uso de herramientas de IA
+
+Este proyecto fue desarrollado por su autor con asistencia de herramientas de IA: **Claude Code** en implementación y documentación,
+**Codex** en revisiones y auditorías técnicas, y **ChatGPT** en planificación y orientación técnica. El autor definió los objetivos, tomó las
+decisiones de diseño, supervisó las implementaciones y validaciones, revisó los resultados y asume la responsabilidad final del proyecto.
+Las revisiones realizadas mediante herramientas de IA son asistidas y automatizadas y no sustituyen una auditoría humana independiente.
+Esta declaración no sustituye las obligaciones académicas aplicables al proyecto ([D7](docs/decisiones_y_pendientes.md#d7-política-del-curso-sobre-asistencia-de-ia)).
 
 ## Estado del proyecto
 
-Última revisión de esta documentación: 2026-11-11
+Última revisión de esta documentación: 2026-11-13
 
 Esta documentación distingue tres niveles:
 - **Implementado:** verificable leyendo el código de este repositorio.
@@ -88,9 +103,12 @@ Constan en esta documentación como **confirmados por el autor**; no hay captura
 
 Salidas de terminal comunicadas por el autor. No hay un log persistente de estas ejecuciones en el repositorio:
 - `scripts/validar_repo.py`: `CORRECTO: 0 error(es)`;
-- compilación de Python sin errores;
-- pruebas sin Spark (`tests/test_comun.py` y `tests/test_validar_repo.py`): `25 passed`;
-- suite completa con Java 17 en WSL2: `40 passed in 27.11s`.
+- compilación de Python sin errores.
+
+**Cifras de pruebas retiradas.** Este README citaba antes resultados históricos de pruebas (`25 passed` sin Spark y `40 passed` con la suite
+completa). Se retiraron porque no se conserva el comando, la versión del código evaluada ni un log que las respalde, y no se han reproducido.
+No se publica ninguna cifra de pruebas aprobadas. La suite está en `tests/` y se lanza con `uv run pytest` (requiere Java para las pruebas con
+PySpark); las pruebas de `tests/` cubren el pipeline S3 original y **no** el laboratorio de `lakehouse_lab/`.
 
 Esos resultados son los comunicados antes de esta parametrización. El bundle actual requiere además `BUNDLE_VAR_s3_bucket`
 (o `--var="s3_bucket=<nombre-del-bucket>"`); el workflow manual de producción requiere `DATABRICKS_S3_BUCKET` en el environment `prod`.
@@ -123,7 +141,7 @@ Otras comprobaciones locales documentadas:
 Las cuestiones abiertas están en [docs/decisiones_y_pendientes.md](docs/decisiones_y_pendientes.md):
 - Managed Identity frente al IAM Role;
 - la aceptación de los datasets;
-- la redistribución de Automobile, que se excluyó del repositorio y sigue pendiente de revisar las condiciones descritas en [datasets/README.md](datasets/README.md).
+- Automobile, que queda **excluido de la publicación inicial**; incluirlo en el futuro exigiría confirmar la identidad de la copia y las condiciones descritas en [DATASETS.md](DATASETS.md).
 
 ## Fuentes de datos
 
@@ -133,7 +151,7 @@ Las cuestiones abiertas están en [docs/decisiones_y_pendientes.md](docs/decisio
 | Automobiles | `Automobile_data.csv` (**no incluido en el repositorio**) | 205 × 26 | Nulos marcados con `?`; sin clave natural |
 
 Las dos fuentes **no comparten columnas** y no se combinan en ninguna capa. Ver [docs/esquemas_detectados.md](docs/esquemas_detectados.md)
-para los esquemas y [datasets/README.md](datasets/README.md) para la procedencia, atribución y condiciones de licencia declaradas.
+para los esquemas y [DATASETS.md](DATASETS.md) (y [datasets/README.md](datasets/README.md)) para la procedencia, atribución y condiciones de licencia declaradas.
 
 ## Arquitectura
 
@@ -197,7 +215,7 @@ PrepAmb/            prerrequisitos_admin.sql: lo que hace un admin una sola vez 
 proceso/            notebooks de producción + comun.py + transformaciones.py
 seguridad/          modelo de permisos + verificar_permisos.sql (solo consultas)
 reversion/          01_revoke.py · 02_drop_tablas.py (manuales, con confirmación)
-datasets/           CSV de E-commerce (versionado) + README de procedencia y licencias. El CSV de Automobile queda fuera de Git (.gitignore)
+datasets/           CSV de E-commerce (versionado) + README técnico. El CSV de Automobile queda fuera de Git (.gitignore). Procedencia y licencias: DATASETS.md (raíz)
 docs/               esquemas, checklist, configuración, decisiones y pendientes, diagramas (Mermaid)
 resources/          definición del job
 tests/              pruebas PySpark (CSV de E-commerce y datos sintéticos de Automobiles), aislamiento, principal, salidas y validador
@@ -290,3 +308,8 @@ Las pruebas `*_csv_real` y la variante `real` de `test_dashboard_sql.py` son opc
 - [docs/checklist_cumplimiento.md](docs/checklist_cumplimiento.md): requisitos y su estado (local, workspace o pendiente).
 - [docs/decisiones_y_pendientes.md](docs/decisiones_y_pendientes.md): diferencias con el enunciado que necesitan confirmación humana.
 - [seguridad/README.md](seguridad/README.md): modelo de permisos, aislamiento, autoría e infraestructura, datos personales y secretos.
+
+
+## Laboratorio Free Edition (Medallion sobre Managed Volume)
+
+Implementación alternativa y separada de la arquitectura S3, ejecutada en Databricks Free Edition: ver [lakehouse_lab/README.md](lakehouse_lab/README.md). No demuestra integración S3 ni Managed Identity.

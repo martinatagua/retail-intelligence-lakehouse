@@ -36,8 +36,8 @@ confirmar el profesor. Si exige Azure, haría falta otro workspace y otro almace
 
 ## D3. Licencias de los CSV
 
-**Procedencia documentada; revisión de redistribución pendiente.** Las fuentes, las declaraciones de licencia y los límites de la
-evidencia disponible están centralizados en [datasets/README.md](../datasets/README.md). No se han archivado capturas de las páginas.
+**Procedencia documentada. E-commerce verificado byte a byte (2026-11-13); Automobile excluido de la publicación inicial.** Las fuentes, las licencias declaradas y la decisión de publicación
+están en [DATASETS.md](../DATASETS.md), con el detalle técnico en [datasets/README.md](../datasets/README.md). No se han archivado capturas de las páginas.
 
 Esto no resuelve **D2**: que la procedencia esté documentada no significa que el profesor acepte estos datasets.
 
@@ -61,18 +61,31 @@ Los notebooks solo leen RAW y escriben en `lakehouse/`, pero eso lo garantiza el
 
 ## D7. Política del curso sobre asistencia de IA
 
-**Pendiente.** No consta en el repositorio ninguna política del curso sobre el uso de herramientas de IA (el PDF del enunciado no está
+**Declaración resuelta el 2026-11-13; consulta de la política del curso, pendiente.** *(El texto siguiente, hasta la actualización fechada, es la decisión original y se conserva como historial.)*
+
+No consta en el repositorio ninguna política del curso sobre el uso de herramientas de IA (el PDF del enunciado no está
 en el repositorio). Por eso esta documentación **no declara ni niega** que se hayan utilizado esas herramientas: es una decisión del
 propietario, tras consultar la política aplicable al curso. Hasta entonces, las afirmaciones de autoría del [README](../README.md#autoría-y-alcance)
 describen la autoría declarada por el propietario y no resuelven esta cuestión.
 
+### Actualización 2026-11-13
+
+- **Decisión del propietario:** declarar el uso de herramientas de IA en el proyecto. La posición anterior («ni declara ni niega») queda superada en cuanto a la declaración.
+- **Herramientas y funciones declaradas:** Claude Code (implementación y documentación), Codex (revisiones y auditorías técnicas) y ChatGPT (planificación y orientación técnica).
+  El autor definió los objetivos, tomó las decisiones de diseño, supervisó implementaciones y validaciones, revisó los resultados y asume la responsabilidad final.
+- **Texto incorporado:** sección «Uso de herramientas de IA» del [README](../README.md#uso-de-herramientas-de-ia). La sección de autoría del README se ajustó para que no
+  atribuya en exclusiva al autor el desarrollo ni acredite la autoría de fragmentos concretos.
+- **Razón:** una declaración de autoría sin mención de la asistencia de IA contradecía el desarrollo real del proyecto y la decisión de transparencia del propietario.
+  La declaración no atribuye a una herramienta tareas que no realizó, y las revisiones de IA se presentan como asistidas y automatizadas, no como auditoría humana independiente.
+- **Política académica:** sigue **sin constar** en el repositorio ninguna política del curso sobre IA, y no hay evidencia de que permita cualquier uso. Esta declaración
+  de transparencia **no sustituye ni resuelve** las obligaciones académicas externas: el propietario debe consultar y respetar la política aplicable. Esa consulta sigue pendiente.
+
 ## D8. Distribución de los datasets
 
-**Decisión del propietario aplicada; redistribución de Automobile pendiente.**
-- **E-commerce se incluye** en el repositorio, con su atribución y la licencia CC0 declarada por Kaggle (declaración de la fuente; sin verificación legal independiente).
-- **Automobile se excluye** del repositorio versionado (`.gitignore`; el archivo se conserva en el equipo local). Su revisión de redistribución sigue pendiente y no se declara autorizado.
+**Decisión del propietario aplicada (actualizada el 2026-11-13).** Automobile queda **excluido de la publicación inicial**.
+- **E-commerce se incluye** en el repositorio, con atribución a Nevil Dhinoja (Kaggle) y la licencia CC0 1.0 declarada por la fuente. Su archivo es **BYTE IDENTICAL** a la descarga oficial de Kaggle (verificado el 2026-11-13). CC0 es una declaración del propietario de la publicación, no una garantía de titularidad absoluta ([DATASETS.md](../DATASETS.md)).
+- **Automobile se excluye** de la publicación inicial (`.gitignore`; no rastreado y fuera del historial; se conserva en el equipo local). La copia local no tiene identidad confirmada frente a la distribución de UCI (Schlimmer, CC BY 4.0, DOI 10.24432/C5B01C) y no se considera cubierta automáticamente por ninguna licencia.
 - Consecuencia: un clon no trae Automobile. Las pruebas públicas usan datos sintéticos y el flujo completo exige obtener el CSV por separado
   ([datasets/README.md](../datasets/README.md#automobile-cómo-obtenerlo-y-configurarlo)).
 - Sigue sin confirmarse con el profesor si el enunciado acepta esta forma de entrega de los datasets ([D2](#d2-datasets-e-commerce-y-automobiles-frente-a-los-del-ejemplo)).
-- La documentación derivada de Automobile que permanece en el repositorio (esquema y conteos en `docs/esquemas_detectados.md`, cifras de `dashboard/`) describe el dataset, no lo contiene; su
-  conveniencia para el repositorio público es una decisión del propietario.
+- La documentación y consultas derivadas de Automobile (esquema y conteos en `docs/esquemas_detectados.md`, cifras y consultas de `dashboard/`) describen el dataset, no lo contienen. El propietario decidió mantenerlas únicamente con atribución apropiada a la fuente UCI y dejando clara su procedencia ([DATASETS.md](../DATASETS.md)).

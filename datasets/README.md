@@ -1,19 +1,20 @@
 # datasets/
 
-Carpeta **requerida** por la estructura del enunciado. Esta es la **fuente principal** de la procedencia, la atribución y el estado de
-licencia de los datasets; el resto de la documentación enlaza aquí.
+Carpeta **requerida** por la estructura del enunciado. La **fuente principal** de procedencia, atribución, licencias y decisión de publicación
+es [DATASETS.md](../DATASETS.md) (raíz del repositorio); este archivo aporta el detalle técnico y debe leerse de forma coherente con él.
 
 **Qué incluye el repositorio versionado** (decisión de distribución del propietario):
 
 - **E-commerce: incluido.** `ecommerce/Ecommerce_Sales_Prediction_Dataset.csv`.
-- **Automobile: no incluido.** `automobiles/Automobile_data.csv` **no se versiona**: `.gitignore` lo excluye (solo ese CSV, no la carpeta) para que no
-  llegue por accidente al repositorio público. El autor lo conserva en su equipo local. La revisión de su redistribución **sigue pendiente**.
+- **Automobile: EXCLUDED FROM INITIAL PUBLICATION.** `automobiles/Automobile_data.csv` **no se versiona**: `.gitignore` lo excluye (solo ese CSV, no la carpeta), no está
+  rastreado y no figura en el historial Git. El autor lo conserva en su equipo local. Su identidad frente a la distribución de UCI no está confirmada.
   Quien clone el repositorio debe obtenerlo por separado (ver [Automobile: cómo obtenerlo](#automobile-cómo-obtenerlo-y-configurarlo)).
 
 Los datasets son de terceros y el autor del proyecto no reclama derechos sobre ellos. **La licencia MIT de la raíz cubre exclusivamente el
 código original del proyecto: no se aplica a ninguno de estos datasets** ni a otros materiales de terceros, y no sustituye ni modifica las
 condiciones que cada fuente declare. Las licencias que se indican abajo son las **declaradas por las fuentes**, no una verificación legal.
-E-commerce y Automobile **no tienen la misma situación**: el primero se incluye; el segundo se excluye y su redistribución está sin resolver.
+E-commerce y Automobile **no tienen la misma situación**: el primero se incluye (CC0 1.0 declarada por su fuente, archivo verificado byte a byte);
+el segundo se excluye de la publicación inicial.
 
 El pipeline **no** lee los CSV desde esta carpeta: se suben a `s3://<nombre-del-bucket>/raw/` y se leen directamente desde S3.
 Aquí, E-commerce sirve para las pruebas locales (`tests/`) y como referencia del esquema ([docs/esquemas_detectados.md](../docs/esquemas_detectados.md)).
@@ -25,36 +26,37 @@ Automobile puede validarse y ejecutar sus pruebas.
 | `automobiles/Automobile_data.csv` (**no versionado**: copia local del autor) | 205 × 26 | 25 070 | `2c7c43bd00c53112d7766dd825b986b57aa15a0450815ef568d60216fbe5e587` |
 | `ecommerce/Ecommerce_Sales_Prediction_Dataset.csv` | 1000 × 7 | 52 879 | `db6b4ebe74af038cb0671b2cadb4f0ffcd69311e6ec999d1ee0265e4b51d7162` |
 
-El SHA-256 es la **huella de la copia local** de cada archivo: sirve para detectar si esta copia cambia. No prueba que coincida con el archivo de
-la fuente original, cuyo SHA-256 no se conserva.
+El SHA-256 es la **huella de la copia local** de cada archivo. Para E-commerce **sí coincide** con el de la descarga oficial de Kaggle (BYTE IDENTICAL,
+verificado el 2026-11-13; ver [DATASETS.md](../DATASETS.md)). Para Automobile **no prueba** que coincida con la distribución de UCI, cuyo SHA-256 no se conserva.
 
 ## Fuentes, atribución y estado de las licencias
 
-Actualizado el 2026-11-11. Estas licencias son las que **declaran las fuentes**, no el resultado de una revisión legal independiente.
-Las descripciones de las fichas de Kaggle y el PDF del enunciado los aportó el propietario del proyecto. No hay capturas archivadas
-de las páginas de licencia; esta documentación informa lo declarado en las fuentes y no presenta una resolución jurídica.
+Actualizado el 2026-11-13. Estas licencias son las que **declaran las fuentes**, no el resultado de una revisión legal independiente.
+Para E-commerce, los metadatos de la ficha de Kaggle (propietario, licencia, versión) se leyeron del API público el 2026-11-13. El PDF del enunciado
+lo aportó el propietario del proyecto. No hay capturas archivadas de las páginas de licencia; esta documentación informa lo declarado en las fuentes
+y no presenta una resolución jurídica.
 
 | Archivo | Fuente inmediata (publicador) | Licencia declarada por esa fuente | Origen declarado | Pendiente |
 |---|---|---|---|---|
 | Automobiles | Descarga obtenida desde Kaggle; publicación de Sumaya23 Abdul, *Automobile Database* | La página de Kaggle declara **CC0: Public Domain** | Correspondencia identificada con el dataset *Automobile* de UCI, Jeffrey C. Schlimmer (1985); UCI declara **CC BY 4.0** | Revisar las condiciones aplicables antes de redistribuir; no se afirma que una declaración sustituya a la otra |
-| E-commerce | Descarga directa desde Kaggle; publicación de Nevil Dhinoja, *E-commerce Sales Prediction Dataset* | La página de Kaggle declara **CC0** | Sintético, según la descripción de la fuente | Ninguna captura archivada; SHA-256 de esta copia indicado abajo |
+| E-commerce | Descarga directa desde Kaggle; publicación de Nevil Dhinoja, *E-commerce Sales Prediction Dataset* (v1, 2024-12-14) | Kaggle declara **CC0 1.0** | Sintético, según la descripción del autor | Ninguna captura archivada |
 
 Los dos CSV se conservan sin modificar. Decisión del propietario: **E-commerce se incluye** en el repositorio, con su atribución y la
-licencia CC0 que Kaggle declara (declaración de la fuente, sin captura archivada ni verificación legal independiente); **Automobile se excluye**
-del repositorio versionado. Esta documentación **no declara Automobile autorizado para publicación**: su redistribución sigue pendiente de resolución.
+licencia CC0 1.0 que Kaggle declara (declaración de la fuente, sin captura archivada ni verificación legal independiente); **Automobile se excluye
+de la publicación inicial**. Esta documentación **no declara Automobile autorizado para publicación** ni lo considera cubierto por CC BY 4.0 o por la CC0 de un tercero.
 
 ### Qué está y qué no está establecido
 
 | Aspecto | E-commerce | Automobiles |
 |---|---|---|
 | Procedencia identificada | Kaggle, publicado por Nevil Dhinoja | Kaggle, publicado por Sumaya23 Abdul; correspondencia identificada con *Automobile* de UCI (Schlimmer, 1985) |
-| Equivalencia de contenido con el original, verificada | No aplica: la fuente es la publicación de Kaggle | **No** verificada de forma reproducible |
+| Equivalencia de contenido con el original, verificada | **Sí: BYTE IDENTICAL** con la descarga oficial de Kaggle (2026-11-13) | **No** verificada de forma reproducible |
 | Atribución documentada | Sí | Sí |
-| Licencia declarada por la fuente de descarga | CC0 (Kaggle); sin captura archivada | CC0 (Kaggle); sin captura archivada |
+| Licencia declarada por la fuente de descarga | CC0 1.0 (Kaggle, propietario de la publicación); sin captura archivada | CC0 (Kaggle, publicación de un tercero); sin captura archivada |
 | Licencia declarada por la fuente original identificada | No aplica | CC BY 4.0 (UCI); sin captura archivada |
-| Condiciones de redistribución verificadas | **No** | **No** |
-| Incluido en el repositorio versionado | **Sí** (decisión del propietario) | **No** (decisión de distribución; `.gitignore`) |
-| Redistribución de Automobile | No aplica a este punto | **Pendiente de resolución**; no se afirma autorización |
+| Condiciones de redistribución verificadas | Licencia declarada por la fuente primaria confirmada en el API de Kaggle; **no** es una verificación jurídica independiente | **No** |
+| Incluido en el repositorio versionado | **Sí** (decisión del propietario) | **No**: EXCLUDED FROM INITIAL PUBLICATION (`.gitignore`) |
+| Redistribución de Automobile | No aplica a este punto | No autorizada ni afirmada: la copia local no está cubierta automáticamente por CC BY 4.0 |
 
 ### Automobiles: `Automobile_data.csv`
 
@@ -92,18 +94,18 @@ motivo explícito y no cuentan como ejecutadas.
 ### E-commerce: `Ecommerce_Sales_Prediction_Dataset.csv`
 
 Se incluye en el repositorio por decisión del propietario. **La licencia MIT de la raíz no se aplica a este archivo**; se rige por las condiciones de su fuente
-(CC0 declarada por Kaggle, sin verificación legal independiente).
+(CC0 1.0 declarada por Kaggle, sin verificación legal independiente). Ver [DATASETS.md](../DATASETS.md).
 
 | | |
 |---|---|
 | Fuente | *E-commerce Sales Prediction Dataset*, de Nevil Dhinoja, en Kaggle: [kaggle.com/datasets/nevildhinoja/e-commerce-sales-prediction-dataset](https://www.kaggle.com/datasets/nevildhinoja/e-commerce-sales-prediction-dataset) |
 | Fuente de descarga y publicador | Descarga directa desde Kaggle: [*E-commerce Sales Prediction Dataset*](https://www.kaggle.com/datasets/nevildhinoja/e-commerce-sales-prediction-dataset), publicado por Nevil Dhinoja. |
-| Huella de esta copia | SHA-256 de la copia local: `db6b4ebe74af038cb0671b2cadb4f0ffcd69311e6ec999d1ee0265e4b51d7162`. Identifica esta copia; no prueba que sea idéntica al archivo publicado en Kaggle, porque no se conserva el SHA-256 de la fuente. La descarga fue comunicada por el autor. |
-| Licencia declarada por Kaggle | **CC0**, tal como aparece declarada en la página. Es una declaración de la fuente, no una verificación legal independiente de los derechos sobre los datos. |
-| Naturaleza | **Datos sintéticos, no obtenidos de una plataforma real**, según la descripción del publicador (aportada por el propietario) |
+| Huella de esta copia | SHA-256 `db6b4ebe74af038cb0671b2cadb4f0ffcd69311e6ec999d1ee0265e4b51d7162`, 52 879 bytes. **BYTE IDENTICAL** al archivo de la descarga oficial pública de Kaggle (SHA-256 y `cmp`), comprobado el 2026-11-13 con una descarga hecha fuera del repositorio. |
+| Licencia declarada por Kaggle | **CC0 1.0** (<https://creativecommons.org/publicdomain/zero/1.0/>), declarada por el propietario de la publicación (v1, 2024-12-14). Es una declaración de la fuente, no una verificación legal independiente ni una garantía de titularidad absoluta; CC0 no resuelve derechos de terceros. |
+| Naturaleza | **Datos sintéticos, no obtenidos de una plataforma real**, según la descripción del autor en Kaggle (generados con NumPy y Pandas) |
 | `Discount` | El publicador lo describe como **porcentaje**. Se documenta como **información declarada por la fuente**: los datos no lo confirman ([esquemas_detectados.md](../docs/esquemas_detectados.md#evidencia-sobre-discount)) y el pipeline mantiene `semantica_discount = desconocida` |
 | Estadísticas de la ficha | **No se copian.** Se observaron discrepancias entre el resumen textual de `Price` en la ficha y los datos del CSV. Las estadísticas de este repositorio se calculan sobre el CSV |
-| Pendiente | Guardar una captura de la ficha de Kaggle que muestre la licencia declarada, sin datos de la cuenta de quien descarga |
+| Pendiente | Opcional: archivar una captura de la ficha de Kaggle que muestre la licencia declarada, sin datos de la cuenta de quien descarga |
 
 Atribución (CC0 no la exige; se incluye como referencia de la fuente):
 
@@ -111,7 +113,7 @@ Atribución (CC0 no la exige; se incluye como referencia de la fuente):
 
 ## Antes de publicar
 
-1. Conservar la atribución a Kaggle (fuente de descarga y publicadores) y a Nevil Dhinoja para E-commerce, y a Kaggle y a UCI/Jeffrey C. Schlimmer para la procedencia identificada de Automobiles.
-2. Revisar las condiciones aplicables al dataset Automobile antes de decidir su redistribución. La documentación no concluye que las declaraciones CC0 y CC BY 4.0 sean incompatibles ni que una reemplace a la otra.
-3. Automobile permanece fuera del repositorio versionado y su redistribución sigue pendiente de resolución: no se declara autorizado. E-commerce se incluye por decisión del propietario; su licencia es la declarada por Kaggle, sin verificación legal independiente. No se han archivado capturas de páginas de licencia.
-4. Si más adelante se decide incluir Automobile, habrá que retirar la regla de `.gitignore` y actualizar esta página y la checklist; hoy el validador (`scripts/validar_repo.py`) falla si una copia de Automobile llega a los archivos publicables.
+1. Conservar la atribución a Nevil Dhinoja y Kaggle para E-commerce, y a UCI/Jeffrey C. Schlimmer (DOI 10.24432/C5B01C, CC BY 4.0) para Automobile, según [DATASETS.md](../DATASETS.md).
+2. Automobile está **excluido de la publicación inicial** y permanece fuera del repositorio versionado: no se declara autorizado ni cubierto automáticamente por CC BY 4.0. La documentación no concluye que las declaraciones CC0 (Kaggle) y CC BY 4.0 (UCI) sean incompatibles ni que una reemplace a la otra.
+3. E-commerce se incluye por decisión del propietario; su licencia es la declarada por Kaggle, sin verificación legal independiente. No se han archivado capturas de páginas de licencia.
+4. Si más adelante se decide incluir Automobile, habrá que confirmar antes la identidad de la copia frente a UCI, retirar la regla de `.gitignore` y actualizar esta página, `DATASETS.md` y la checklist; hoy el validador (`scripts/validar_repo.py`) falla si una copia de Automobile llega a los archivos publicables.

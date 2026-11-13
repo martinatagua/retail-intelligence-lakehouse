@@ -59,8 +59,9 @@ El **cumplimiento académico** (secciones 6 y 7) está pendiente de contrastarse
 - [x] (L) `s3_bucket`: declaración única sin default; nombre validado con las reglas de buckets S3 de propósito general (`comun.validar_nombre_bucket`, con pruebas); sin URI `s3://` literales en archivos publicables (`validar_repo.py`)
 - [x] (L) Las salidas de los notebooks no muestran el bucket ni URI `s3://` completas (`comun.ocultar`; pruebas en `tests/test_salidas.py` y comprobación estática en `validar_repo.py`)
 - [x] (L) Validaciones locales comunicadas por el autor, **anteriores a la parametrización de `s3_bucket`** (salidas de terminal, sin log persistente en el repositorio):
-  `validar_repo.py` → `CORRECTO: 0 error(es)`; compilación sin errores; pruebas sin Spark `25 passed`;
-  suite completa con Java 17 en WSL2 `40 passed in 27.11s`
+  `validar_repo.py` → `CORRECTO: 0 error(es)`; compilación sin errores.
+  Las cifras de pruebas aprobadas citadas antes (`25 passed` y `40 passed`) **se retiraron**: no se conserva el comando, la versión evaluada ni un log, y no se han reproducido.
+  No se publica ninguna cifra; la suite de `tests/` cubre el pipeline S3 original, no `lakehouse_lab/`
 
 ## 4. Seguridad y reversión
 - [x] (L) `PrepAmb/prerrequisitos_admin.sql` distingue las operaciones [ADMIN] de las del [JOB] y no es destructivo
@@ -82,7 +83,7 @@ El **cumplimiento académico** (secciones 6 y 7) está pendiente de contrastarse
 
 ## 6. Entregables (estructura del PDF)
 - [~] `datasets/`: el CSV de E-commerce está versionado; el de Automobile **se excluye del repositorio** por decisión de distribución (queda en el equipo local, ignorado por Git). Qué exige el enunciado sobre los datasets de entrega está sin confirmar ([D2](decisiones_y_pendientes.md#d2-datasets-e-commerce-y-automobiles-frente-a-los-del-ejemplo), [D8](decisiones_y_pendientes.md#d8-distribución-de-los-datasets))
-- [x] Procedencia y condiciones de licencia declaradas documentadas en [datasets/README.md](../datasets/README.md); no hay capturas archivadas y la revisión de redistribución de Automobiles sigue pendiente.
+- [x] Procedencia y licencias declaradas documentadas en [DATASETS.md](../DATASETS.md) y [datasets/README.md](../datasets/README.md). E-commerce: **BYTE IDENTICAL** a la descarga oficial de Kaggle (2026-11-13), CC0 1.0 declarada por la fuente. Automobile: **excluido de la publicación inicial**. No hay capturas archivadas.
 - [x] (L) Entorno local reproducible con `uv` (`pyproject.toml` + `uv.lock`)
 - [x] (L) Las pruebas públicas no necesitan el CSV de Automobile: usan datos sintéticos (`tests/datos_sinteticos.py`); las pruebas sobre el CSV original son opcionales y locales, y se omiten con un motivo explícito si falta
 - [x] (L) README con la arquitectura, los entornos, el estado y la ejecución
@@ -95,11 +96,14 @@ El **cumplimiento académico** (secciones 6 y 7) está pendiente de contrastarse
 - [x] (L) Diagramas de arquitectura, job y Medallion en Mermaid editable ([diagramas.md](diagramas.md)). `validar_repo.py` comprueba
   su coherencia con el job y las tablas; la sintaxis se revisó con el parser de Mermaid 11.4.1 en un entorno temporal
 - [ ] Repositorio **público** en GitHub: pendiente de publicar
-- [~] Implementación del autor con el repositorio `Enrykiel/databricks_project` como referencia académica y conceptual (atribuido en el README).
-  No se ha hecho una comparación de código ni de originalidad con ese repositorio; no se incorpora código externo según el autor
+- [~] Implementación con asistencia de IA ([declaración](../README.md#uso-de-herramientas-de-ia)) y con el repositorio `Enrykiel/databricks_project` como referencia académica y conceptual (atribuido en el README).
+  **Comparación realizada el 2026-11-13** sobre las ramas `main` y `dev` del repositorio de referencia: **sin coincidencias materiales ni adaptaciones identificadas**
+  (solo patrones habituales de Databricks/PySpark y la estructura de carpetas del curso). Limitaciones: solo esas dos ramas, comparación textual de código y documentación (no de salidas de celdas ni imágenes),
+  sin acceso al material del curso ni a otras fuentes posibles. Su README declara MIT pero el archivo `LICENSE` **no se encontró** en esas ramas (la API de GitHub devolvió `license: null`):
+  no se verificó el texto íntegro de la licencia. No es una certificación de originalidad
 
 ## 7. Por confirmar con el profesor o evaluador
 - [ ] Si el IAM Role de AWS cubre el requisito «Managed Identity» del enunciado ([D1](decisiones_y_pendientes.md#d1-acceso-a-raw-managed-identity-enunciado-frente-a-iam-role-de-aws-implementación))
 - [ ] Si los datasets E-commerce y Automobiles se aceptan frente al enunciado ([D2](decisiones_y_pendientes.md#d2-datasets-e-commerce-y-automobiles-frente-a-los-del-ejemplo))
-- [ ] Política del curso sobre el uso de herramientas de IA en el desarrollo y su declaración ([D7](decisiones_y_pendientes.md#d7-política-del-curso-sobre-asistencia-de-ia)). **No resuelta**
-- [ ] Redistribución de Automobile: **excluido** del repositorio por decisión del propietario; su revisión de condiciones sigue pendiente ([datasets/README.md](../datasets/README.md), [D3](decisiones_y_pendientes.md#d3-licencias-de-los-csv), [D8](decisiones_y_pendientes.md#d8-distribución-de-los-datasets)).
+- [~] Política del curso sobre el uso de herramientas de IA ([D7](decisiones_y_pendientes.md#d7-política-del-curso-sobre-asistencia-de-ia)). **Declaración de uso de IA incorporada al README el 2026-11-13; la consulta de la política académica aplicable sigue pendiente** (no consta en el repositorio y la declaración no la sustituye)
+- [~] Automobile: **excluido de la publicación inicial** por decisión del propietario; incluirlo exigiría confirmar antes la identidad de la copia frente a UCI ([DATASETS.md](../DATASETS.md), [datasets/README.md](../datasets/README.md), [D3](decisiones_y_pendientes.md#d3-licencias-de-los-csv), [D8](decisiones_y_pendientes.md#d8-distribución-de-los-datasets)).

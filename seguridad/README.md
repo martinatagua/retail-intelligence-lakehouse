@@ -94,7 +94,7 @@ Para revertir, usa [`reversion/01_revoke.py`](../reversion/01_revoke.py).
 
 Son tres cosas distintas y no deben confundirse:
 
-- **Autoría del código y del desarrollo:** Martin Atagua (proyecto individual; ver [Autoría y alcance](../README.md#autoría-y-alcance)).
+- **Autoría y responsabilidad del proyecto:** Martin Atagua (proyecto individual, desarrollado con asistencia de herramientas de IA; ver [Autoría y alcance](../README.md#autoría-y-alcance) y [Uso de herramientas de IA](../README.md#uso-de-herramientas-de-ia)).
 - **Recursos utilizados en las ejecuciones**, todos externos al repositorio:
   - un workspace de Databricks, al que el autor tuvo acceso temporal;
   - recursos de AWS: el bucket S3 y el IAM Role;
